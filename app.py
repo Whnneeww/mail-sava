@@ -23,7 +23,7 @@ def send_email():
         email = request.json['email']
 
         # メール送信処理
-        msg = Message('Test Email', sender='your-email@gmail.com', recipients=[email])
+        msg = Message('Test Email', sender='whnneeww@gmail.com', recipients=[email])
         msg.body = 'This is a test email sent from the web application.'
 
         mail.send(msg)
