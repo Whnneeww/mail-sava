@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メール送信フォーム</title>
+</head>
+<body>
+
+    <form id="emailForm">
+        <label for="email">メールアドレス:</label>
+        <input type="email" id="email" name="email" required>
+        <button type="button" onclick="sendEmail()">メール送信</button>
+    </form>
+
+    <script>
+        function sendEmail() {
+            const email = document.getElementById('email').value;
+            
+            // サーバーサイドにメールアドレスを送信するためのAjaxリクエスト
+            fetch('/send-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: email })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('メール送信に失敗しました');
+                }
+                return response.text();
+            })
+            .then(data => {
+                alert(data);
+            })
+            .catch(error => {
+                console.error(error);
+                alert('エラーが発生しました');
+            });
+        }
+    </script>
+
+</body>
+</html>
